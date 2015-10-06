@@ -6,6 +6,7 @@ DIRECTORY STRUCTURE
 
       assets/             contains assets definition
       commands/           contains console commands (controllers)
+      components/         contains custom classes
       config/             contains application configurations
       controllers/        contains Web controller classes
       mail/               contains view files for e-mails
