@@ -1,0 +1,27 @@
+.match {
+	/*background: #fff;*/
+	background: #3f51b5;
+	/*color: #000;*/
+	color: #fff;
+	margin-bottom: 7px;
+	font-size: 1.5em;
+}
+
+.match:hover {
+	background: #4558C3;
+}
+
+.match-home {
+	padding: 7px;
+}
+
+.match-score {
+	padding: 7px;
+	background-color:rgba(255, 255, 255, 0.2);
+	color: #fff;
+}
+
+.match-away {
+	padding: 7px;
+}
+
