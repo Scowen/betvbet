@@ -32,22 +32,25 @@ $matches = array(
 <div class="row">
     <div class="col-md-3 hidden-xs">
         <div class="well">
-            <h4>Premier League</h4>
+            <h4>Premier League Top 5</h4>
             <table class="table table-striped">
                 <thead>
                     <th>#</th>
                     <th>&nbsp;</th>
-                    <th><abbr title="Games Played">GP</abbr></th>
                     <th><abbr title="Points"><strong>P</strong></abbr></th>
                 </thead>
                 <tbody>
+                    <?php $i = 0; ?>
                     <?php foreach (\app\models\Competition::findOne(1)->teams as $team): ?>
                         <tr>
                             <td><?php echo $team->position; ?></td>
                             <td><?php echo $team->name; ?></td>
-                            <td><?php echo $team->overall_gp; ?></td>
                             <td><strong><?php echo $team->points; ?></strong></td>
                         </tr>
+                        <?php
+                        $i++;
+                        if ($i >= 5) break;
+                        ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -87,7 +90,7 @@ $matches = array(
                             <span class="badge badge-inverse-light">1</span>
                         </div>
                         <div class="col-xs-4 text-right">
-                            <a href="#" class="btn btn-xs btn-link">Bet</a>
+                            <!-- <a href="#" class="btn btn-xs btn-link">Bet</a> -->
                         </div>
                     </div>
                 </div>        
