@@ -95,6 +95,3 @@ $matches = array(
         <?php endforeach; ?>
     </div>
 </div>
-
-<?php \app\components\api\Football::competitions(); ?>
-<?php \app\components\api\Football::standings(1204); ?>
