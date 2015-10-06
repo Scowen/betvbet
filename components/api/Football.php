@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use \app\models\Competition;
 use \app\models\Team;
+use \app\models\Match;
 
 class Football extends Component
 {
