@@ -35,7 +35,7 @@ class Football extends Component
         $competitions = self::request("competitions");
 
         // Check if the result is valid.
-        if ($competitions && $competitions->Competition) {
+        if ($competitions && isset($competitions->Competition) && $competitions->Competition) {
             // The competitions variable is valid. Cycle through it, updating and adding new competitions.
             foreach ($competitions->Competition as $c) {
                 $competition = self::getCompetition($c);
@@ -82,7 +82,7 @@ class Football extends Component
             $standings = self::request("standings", ['comp_id' => $c->api_id]);
 
             // Check if the result is valid.
-            if ($standings && $standings->teams) {
+            if ($standings && isset($standings->teams) && $standings->teams) {
                 // The standings are valid, cycle through the teams.
                 foreach ($standings->teams as $t) {
                     $team = self::getTeam($t);
@@ -153,7 +153,7 @@ class Football extends Component
         foreach ($competitions as $c) {
             $matches = self::request("today", ['comp_id' => $c->api_id]);
 
-            if ($matches && $matches->match) {
+            if ($matches && isset($matches->match) && $matches->match) {
                 foreach ($matches as $m) {
                     // Try and find a pre-existing match.
                     $match = self::getMatch($m);
