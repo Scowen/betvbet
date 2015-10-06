@@ -4,22 +4,27 @@ namespace app\components\api;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 
 class Football extends Component
 {
-	static $url = "http://football-api.com/api/";
-	static $apiKey = "510392b5-0578-b5e4-9ace1978dfa2";
+	static $uri = 'http://football-api.com/api/';
+	static $apiKey = '510392b5-0578-b5e4-9ace1978dfa2';
 
-	public static function request($action, $params = null) {
-		$url = self::$url . "?Action=$action&APIKey=" . self::$apiKey;
-		if ($params)
-			foreach ($params as $key => $value)
-				$url .= "&$key=$value";
-		
-		$result = file_get_contents($url);
-		$result = json_decode($result);
+	public static function request($action, $params = array()) {
+		$params['Action'] = $action;
+		$params['APIKey'] = self::$apiKey;
 
-		return $result;
+		// Create the Guzzle Client request.
+		$client = new Client();
+		$response = $client->request('GET', self::$uri, [
+		    'query' => $params
+		]);
+		// Get the JSON data back from the response.
+		$json = json_decode($response->getBody());
+		// Finally, return the data.
+		return $json;
 	}
 
 	public static function competitions() {
