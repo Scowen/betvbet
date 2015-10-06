@@ -10,12 +10,12 @@ class m151005_210629_create_table_competition extends Migration
         $this->createTable(
             '{{competition}}',
             array(
-                'id'            => 'pk                    ',
-                'api_id'        => 'INT           NOT NULL',
-                'name'          => 'VARCHAR(128)  NOT NULL',
-                'region'        => 'VARCHAR(128)  NOT NULL',
-                'last_updated'  => 'INT           NOT NULL',
-                'created'       => 'INT           NOT NULL',
+                'id'            => $this->primaryKey(),
+                'api_id'        => $this->integer()->notNull(),
+                'name'          => $this->string(128)->notNull(),
+                'region'        => $this->string(128)->notNull(),
+                'last_updated'  => $this->integer()->notNull(),
+                'created'       => $this->integer()->notNull(),
             ),
             implode(' ', array(
                 'ENGINE          = InnoDB',

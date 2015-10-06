@@ -8,8 +8,8 @@ class m151004_103623_insert_user_admin extends Migration
     public function up()
     {
         $this->insert("{{user}}", array(
-            'email' => 'lmscowen@gmail.com',
-            'password' => 'yAMatha19',
+            'email' => 'admin@betvbet.co.uk',
+            'password' => 'This1s4n4dminPassword',
             'created' => time(),
             'admin' => 100,
         ));
