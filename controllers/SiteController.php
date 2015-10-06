@@ -45,8 +45,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
         // Update the database from the API.
-        \app\components\api\Football::competitions();
-        \app\components\api\Football::standings(1204);
+        // \app\components\api\Football::competitions();
+        // \app\components\api\Football::standings();
+        \app\components\api\Football::live();
 
         return $this->render('index');
     }
