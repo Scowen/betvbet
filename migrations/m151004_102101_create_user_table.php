@@ -14,7 +14,7 @@ class m151004_102101_create_user_table extends Migration
                 'email'       => $this->string(128)->notNull(),
                 'password'    => $this->string(128)->notNull(),
                 'authKey'     => $this->text(),
-                'accessToken' => $this->text(), 
+                'accessToken' => $this->text(),
                 'active'      => $this->boolean()->notNull()->defaultValue(FALSE),
                 'admin'       => $this->integer()->notNull()->defaultValue(10),
                 'balance'     => $this->double()->notNull()->defaultValue(0),

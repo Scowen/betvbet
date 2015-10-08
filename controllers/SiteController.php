@@ -47,7 +47,7 @@ class SiteController extends Controller
         // Update the database from the API.
         // \app\components\api\Football::competitions();
         // \app\components\api\Football::standings();
-        \app\components\api\Football::live();
+        // \app\components\api\Football::live();
 
         return $this->render('index');
     }

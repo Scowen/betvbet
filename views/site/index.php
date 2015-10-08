@@ -40,18 +40,23 @@ $matches = array(
                     <th><abbr title="Points"><strong>P</strong></abbr></th>
                 </thead>
                 <tbody>
-                    <?php $i = 0; ?>
-                    <?php foreach (\app\models\Competition::findOne(1)->teams as $team): ?>
-                        <tr>
-                            <td><?php echo $team->position; ?></td>
-                            <td><?php echo $team->name; ?></td>
-                            <td><strong><?php echo $team->points; ?></strong></td>
-                        </tr>
-                        <?php
-                        $i++;
-                        if ($i >= 5) break;
-                        ?>
-                    <?php endforeach; ?>
+                    <?php
+                    $premLeague = \app\models\Competition::findOne(1);
+                    $i = 0;
+                    ?>
+                    <?php if ($premLeague && $premLeague->teams): ?>
+                        <?php foreach ($premLeague->teams as $team): ?>
+                            <tr>
+                                <td><?php echo $team->position; ?></td>
+                                <td><?php echo $team->name; ?></td>
+                                <td><strong><?php echo $team->points; ?></strong></td>
+                            </tr>
+                            <?php
+                            $i++;
+                            if ($i >= 5) break;
+                            ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
@@ -93,7 +98,7 @@ $matches = array(
                             <!-- <a href="#" class="btn btn-xs btn-link">Bet</a> -->
                         </div>
                     </div>
-                </div>        
+                </div>
             </div>
         <?php endforeach; ?>
     </div>
