@@ -70,7 +70,7 @@ class Football extends Component
     public static function standings($competition = null) { // If it's null, get all compeition standings.
         // Get all the competitions.
         $competitions = Competition::find()->all();
-        
+
         // However, if a competition was given, only use that.
         if ($competition) {
             $competitions = array();
@@ -142,7 +142,7 @@ class Football extends Component
     public static function live($competition = null) {
         // Get all the competitions.
         $competitions = Competition::find()->all();
-        
+
         // However, if a competition was given, only use that.
         if ($competition) {
             $competitions = array();
@@ -152,6 +152,62 @@ class Football extends Component
         // Now loop through the competitions and grab the live matches.
         foreach ($competitions as $c) {
             $matches = self::request("today", ['comp_id' => $c->api_id]);
+
+            if ($matches && isset($matches->match) && $matches->match) {
+                foreach ($matches as $m) {
+                    // Try and find a pre-existing match.
+                    $match = self::getMatch($m);
+                    $match->save();
+                }
+            }
+        }
+    }
+
+    public static function matches($competition = null, $date = null) {
+        // Get all the competitions.
+        $competitions = Competition::find()->all();
+
+        // However, if a competition was given, only use that.
+        if ($competition) {
+            $competitions = array();
+            $competitions[] = Competition::find()->where(['api_id' => $competition])->one();
+        }
+
+        // Now loop through the competitions and grab the live matches.
+        foreach ($competitions as $c) {
+            $matches = self::request("fixtures", [
+                'comp_id' => $c->api_id,
+                'match_date' => date("d.m.Y", ($date) ?: time()),
+            ]);
+
+            if ($matches && isset($matches->match) && $matches->match) {
+                foreach ($matches as $m) {
+                    // Try and find a pre-existing match.
+                    $match = self::getMatch($m);
+                    $match->save();
+                }
+            }
+        }
+    }
+
+    public static function fixtures($competition = null, $from, $to) {
+        // Get all the competitions.
+        $competitions = Competition::find()->all();
+
+        // However, if a competition was given, only use that.
+        if ($competition) {
+            $competitions = array();
+            $competitions[] = Competition::find()->where(['api_id' => $competition])->one();
+        }
+
+
+        // Now loop through the competitions and grab the live matches.
+        foreach ($competitions as $c) {
+            $matches = self::request("fixtures", [
+                'comp_id' => $c->api_id,
+                'from_date' => date("d.m.Y", $from),
+                'to_date' => date("d.m.Y", $to),
+            ]);
 
             if ($matches && isset($matches->match) && $matches->match) {
                 foreach ($matches as $m) {
