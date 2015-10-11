@@ -11,10 +11,9 @@ use \app\models\Team;
 use \app\models\Match;
 
 class Football extends Component
-    static $uri = 'http://football-api.com/api/';
 {
-    // static $apiKey = '510392b5-0578-b5e4-9ace1978dfa2 // Luke.
-    static $apiKey = 'c8e1e1e1-6e70-9bcf-ccdde1e9c3cd'; // Steven.
+    static $uri = 'http://football-api.com/api/';
+    static $apiKey = '510392b5-0578-b5e4-9ace1978dfa2';
 
     public static function request($action, $params = array()) {
         $params['Action'] = $action;
@@ -109,7 +108,7 @@ class Football extends Component
         // Assign all the remaining attributes.
         $team->attributes = array(
             'team_id' => $json->stand_team_id,
-            'competition' => $json->stand_competition_id,
+            'competition' => $competition,
             'name' => $json->stand_team_name,
             'status' => $json->stand_status,
             'form' => $json->stand_recent_form,

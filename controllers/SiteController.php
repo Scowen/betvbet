@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\components\api\Football;
 
 class SiteController extends Controller
 {
@@ -45,9 +46,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         // Update the database from the API.
-        // \app\components\api\Football::competitions();
-        // \app\components\api\Football::standings();
-        // \app\components\api\Football::live();
+        // Football::competitions();
+        // Football::standings();
+        // Football::live();
+        // Football::matches();
+        Football::fixtures(null, time(), time() + (86400*28*12));
 
         return $this->render('index');
     }
@@ -63,6 +66,18 @@ class SiteController extends Controller
             return $this->goBack();
         }
         return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRegister() {
+        $model = new RegisterForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->submit()) {
+            Yii::$app->getSession()->setFlash()
+        }
+
+        return $this->render('register', [
             'model' => $model,
         ]);
     }
