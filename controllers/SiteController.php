@@ -46,10 +46,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         // Update the database from the API.
-        // Football::competitions();
-        // Football::standings();
-        // Football::live();
-        // Football::matches();
+        Football::competitions();
+        Football::standings();
+        Football::live();
+        Football::matches();
         Football::fixtures(null, time(), time() + (86400*28*12));
 
         return $this->render('index');
@@ -74,7 +74,11 @@ class SiteController extends Controller
         $model = new RegisterForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->submit()) {
-            Yii::$app->getSession()->setFlash()
+            // Set a flash to send to the user.
+            Yii::$app->getSession()->setFlash('success', 'Thank you for registering, a confirmation email has been sent to your address');
+            // Now redirect the user to the activation page.
+            // TODO: Actually make an activation page.
+            $this->redirect(['site/activate']);
         }
 
         return $this->render('register', [
