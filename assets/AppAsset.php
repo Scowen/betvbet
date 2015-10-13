@@ -18,7 +18,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'third/twbs/dist/css/bootstrap.min.css',
+        'third/twbs/css/bootstrap.min.css',
         'third/twbs-material/dist/css/material.min.css',
         'third/twbs-material/dist/css/ripples.min.css',
         'third/twbs-material/dist/css/roboto.min.css',
@@ -27,7 +27,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/jquery-2.1.4.min.js',
-        'third/twbs/dist/js/bootstrap.min.js',
+        'third/twbs/js/bootstrap.min.js',
         'third/twbs-material/dist/js/material.min.js',
         'third/twbs-material/dist/js/ripples.min.js',
     ];

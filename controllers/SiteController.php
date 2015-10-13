@@ -7,7 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
+use app\models\RegisterForm;
 use app\components\api\Football;
 
 class SiteController extends Controller
@@ -45,13 +45,6 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        // Update the database from the API.
-        Football::competitions();
-        Football::standings();
-        Football::live();
-        Football::matches();
-        Football::fixtures(null, time(), time() + (86400*28*12));
-
         return $this->render('index');
     }
 
