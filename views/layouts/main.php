@@ -33,7 +33,7 @@ AppAsset::register($this);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="javascript:void(0)">Bet v Bet</a>
+                <?= Html::a('Bet v Bet', ['/site/index'], ['class' => 'navbar-brand']); ?>
             </div>
             <div class="navbar-collapse collapse navbar-inverse-collapse">
                 <ul class="nav navbar-nav">
@@ -74,7 +74,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        
+
     </div>
 </footer>
 
