@@ -108,7 +108,7 @@ class Football extends Component
         // Assign all the remaining attributes.
         $team->attributes = array(
             'team_id' => $json->stand_team_id,
-            'competition' => $competition,
+            'competition' => $json->stand_competition_id,
             'name' => $json->stand_team_name,
             'status' => $json->stand_status,
             'form' => $json->stand_recent_form,
