@@ -55,7 +55,7 @@ AppAsset::register($this);
                                 <li><a href="javascript:void(0)">Another action</a></li>
                                 <li><a href="javascript:void(0)">Something else here</a></li>
                                 <li class="divider"></li>
-                                <li><a href="javascript:void(0)">Separated link</a></li>
+                                 <li><?= Html::a("Logout", ['/site/logout']); ?></li>
                             </ul>
                         </li>
                     <?php endif; ?>
