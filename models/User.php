@@ -122,7 +122,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return (Yii::$app->getSecurity()->validatePassword($password, $this->password));
     }
 
-    public function setPassword($password) {
-        $this->password = Yii::$app->getSecurity()->generatePasswordHash($password);
+    /**
+     * Before saving the record
+     *
+     * @param  boolean $insert Whether this method called while inserting a record. If false, it means the method is called while updating a record.
+     * @return boolean Whether the insertion or updating should continue. If false, the insertion or updating will be cancelled.
+     */
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
