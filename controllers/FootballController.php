@@ -21,4 +21,22 @@ class FootballController extends Controller
 
         return $this->render('index');
     }
+
+    public function actionUpdate($action = null) {
+        if ($action && !Yii::$app->user->isGuest
+            && Yii::$app->user->getIdentity()->admin >= 100) {
+            if ($action == "competitions")
+                Football::competitions();
+            elseif ($action == "standings")
+                Football::standings();
+            elseif ($action == "live")
+                Football::live();
+            elseif ($action == "matches")
+                Football::matches();
+            elseif ($action == "fixtures")
+                Football::fixtures();
+        } else {
+            echo "Invalid request";
+        }
+    }
 }
