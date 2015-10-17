@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=mysql.betvbet.co.uk;dbname=betvbet',
-    'username' => 'betvbet',
-    'password' => 'hMTCTw5c',
+    'dsn' => 'mysql:host=localhostk;dbname=betvbet',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
 ];
