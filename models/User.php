@@ -17,6 +17,15 @@ use yii\web\IdentityInterface;
  * @property integer $active
  * @property integer $admin
  * @property double $balance
+ * @property string $title
+ * @property string $firstname
+ * @property string $middlename
+ * @property string $lastname
+ * @property integer $dob
+ * @property string $contact
+ * @property string $security
+ * @property string $mother_maiden_name
+ * @property string $currency
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -36,9 +45,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             [['email', 'password', 'created'], 'required'],
             [['authKey', 'accessToken'], 'string'],
-            [['created', 'active', 'admin'], 'integer'],
+            [['created', 'active', 'admin', 'dob'], 'integer'],
             [['balance'], 'number'],
-            [['email', 'password'], 'string', 'max' => 128]
+            [['email', 'password'], 'string', 'max' => 128],
+            [['title', 'firstname', 'middlename', 'lastname', 'contact', 'security', 'mother_maiden_name', 'currency'], 'string', 'max' => 255]
         ];
     }
 
@@ -57,6 +67,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'active' => 'Active',
             'admin' => 'Admin',
             'balance' => 'Balance',
+            'title' => 'Title',
+            'firstname' => 'Firstname',
+            'middlename' => 'Middlename',
+            'lastname' => 'Lastname',
+            'dob' => 'Dob',
+            'contact' => 'Contact',
+            'security' => 'Security',
+            'mother_maiden_name' => 'Mother Maiden Name',
+            'currency' => 'Currency',
         ];
     }
 
@@ -135,5 +154,56 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         } else {
             return false;
         }
+    }
+
+    public function sendActivationEmail() {
+        // First, create the body, in Html that is to be used.
+        $htmlBody = "
+        <div style='font-family: Trebuchet MS, Helvetica, sans-serif'>
+            Hello " . $this->title . " " . $this->lastname . ",
+            <br /><br />
+            Thank you for registering with us at <a href='www.betvbet.co.uk'>Bet v Bet</a>.
+            <br /><br />
+            You are one step away from placing your first bet. Simply click the activation link below:
+            <br />
+            {activationLink}
+            <br /><br />
+            Alternatively, <a href='www.betvbet.co.uk/site/login'>log in</a> to your account and enter the code below:
+            <br />
+            {code}
+            <br /><br />
+            This code expires in 24 hours ({tomorrow}).
+            <br /><br />
+            Best of luck!
+            <br />
+            The Bet v Bet Team
+            <br /><br /><br /><br />
+            This inbox is not monitored, please do not reply to this address, any queries should be sent to <a href='mailto:support@betvbet.co.uk'>support@betvbet.co.uk</a>
+        </div>
+        ";
+
+        // Now, create the activation code.
+        $code = \app\components\Utilities::generateRandomString(6);
+        // Create the activation link.
+        $activationLink = Yii::getAlias('@web') . '/site/activate?code=' . $code;
+
+        $activate = new Activate();
+        $activate->attributes = [
+            'user' => $this->id,
+            'code' => $code,
+            'expires' => time() + 86400,
+            'created' => time(),
+        ];
+        $activate->save();
+
+        $htmlBody = str_replace('{activationLink}', $activationLink, $htmlBody);
+        $htmlBody = str_replace('{code}', $code, $htmlBody);
+        $htmlBody = str_replace('{tomorrow}', time() + 86400, $htmlBody);
+        Yii::$app->mailer->compose()
+            ->setFrom(['noreply@betvbet.co.uk' => 'Bet v Bet'])
+            ->setTo($this->email)
+            ->setHtmlBody($htmlBody)
+            ->setSubject('Bet v Bet - Account Activation')
+            ->send();
     }
 }
