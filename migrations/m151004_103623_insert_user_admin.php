@@ -9,7 +9,7 @@ class m151004_103623_insert_user_admin extends Migration
     {
         $this->insert("{{user}}", array(
             'email' => 'admin@betvbet.co.uk',
-            'password' => 'This1s4n4dminPassword',
+            'password' => Yii::$app->getSecurity()->generatePasswordHash('This1s4n4dminPassword'),
             'created' => time(),
             'admin' => 100,
         ));
