@@ -68,6 +68,23 @@ AppAsset::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+        <?php if (Yii::$app->getSession()->hasFlash('success')): ?>
+            <div class="alert alert-success">
+                <?php echo Yii::$app->getSession()->getFlash('success'); ?>
+            </div>
+        <?php endif ?>
+
+        <?php if (Yii::$app->getSession()->hasFlash('warning')): ?>
+            <div class="alert alert-warning">
+                <?php echo Yii::$app->getSession()->getFlash('warning'); ?>
+            </div>
+        <?php endif ?>
+
+        <?php if (Yii::$app->getSession()->hasFlash('danger')): ?>
+            <div class="alert alert-danger">
+                <?php echo Yii::$app->getSession()->getFlash('danger'); ?>
+            </div>
+        <?php endif ?>
         <?= $content ?>
     </div>
 </div>
