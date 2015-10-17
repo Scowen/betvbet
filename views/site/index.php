@@ -56,6 +56,10 @@ $matches = array(
                             if ($i >= 5) break;
                             ?>
                         <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="100%" class="info text-center">No teams to display</td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
