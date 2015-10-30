@@ -16,6 +16,7 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
+    <meta name="google-site-verification" content="iJ3K3Vc_uY0yFkJU3RP7ddrlOuaWuGbBkY5dWuWPfsc" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title>Bet v Bet - <?= Html::encode($this->title) ?></title>
