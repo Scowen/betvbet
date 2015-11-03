@@ -34,7 +34,7 @@ $config = [
                 'username' => 'noreply@betvbet.co.uk',
                 'password' => 'Kcn^u!eC',
                 'port' => '587',
-                'encryption' => 'ssl',
+                'encryption' => 'tls',
             ],
 
         ],
