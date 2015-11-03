@@ -30,7 +30,7 @@ $config = [
 
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'mail.betvbet.co.uk',
+                'host' => 'mail.dreamhost.com',
                 'username' => 'noreply@betvbet.co.uk',
                 'password' => 'Kcn^u!eC',
                 'port' => '587',
