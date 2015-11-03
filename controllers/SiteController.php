@@ -83,7 +83,7 @@ class SiteController extends Controller
 
     public function actionActivation() {
         $user = Yii::$app->user->getIdentity();
-        if ($user->active) {
+        if ($user && $user->active) {
             Yii::$app->getSession()->setFlash("info", "You have already activated your account, super activation is not a thing.");
             $this->redirect(['site/index']);
         }
