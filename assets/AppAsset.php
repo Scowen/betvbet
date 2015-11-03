@@ -18,18 +18,17 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'third/twbs/css/bootstrap.min.css',
+        'css/main.css',
         'third/twbs-material/dist/css/material.min.css',
         'third/twbs-material/dist/css/ripples.min.css',
         'third/twbs-material/dist/css/roboto.min.css',
-        'css/main.css',
-        'css/twbs-addons.css',
     ];
     public $js = [
-        'js/jquery-2.1.4.min.js',
+        'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
         'third/twbs/js/bootstrap.min.js',
         'third/twbs-material/dist/js/material.min.js',
         'third/twbs-material/dist/js/ripples.min.js',
+        'js/main.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

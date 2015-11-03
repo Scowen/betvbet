@@ -183,7 +183,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ";
 
         // Now, create the activation code.
-        $code = \app\components\Utilities::generateRandomString(6);
+        $code = strtoupper(\app\components\Utilities::generateRandomString(6));
         // Create the activation link.
         $activationLink = Yii::getAlias('@web') . '/site/activate?code=' . $code;
 
@@ -198,12 +198,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
         $htmlBody = str_replace('{activationLink}', $activationLink, $htmlBody);
         $htmlBody = str_replace('{code}', $code, $htmlBody);
-        $htmlBody = str_replace('{tomorrow}', time() + 86400, $htmlBody);
+        $htmlBody = str_replace('{tomorrow}', date("d/m/Y H:i", time() + 86400), $htmlBody);
         Yii::$app->mailer->compose()
             ->setFrom(['noreply@betvbet.co.uk' => 'Bet v Bet'])
             ->setTo($this->email)
             ->setHtmlBody($htmlBody)
             ->setSubject('Bet v Bet - Account Activation')
             ->send();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActivate()
+    {
+        return $this->hasOne(Activate::className(), ['user' => 'id'])->orderBy(['created' => SORT_DESC]);
     }
 }

@@ -48,4 +48,12 @@ class Activate extends \yii\db\ActiveRecord
             'created' => 'Created',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserobject()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user']);
+    }
 }

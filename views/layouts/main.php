@@ -9,6 +9,13 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
+// Get the current logged in user.
+$user = Yii::$app->user->getIdentity();
+
+// If the user is not active, redirect them.
+if ($user && !$user->active && (Yii::$app->controller->id != 'site' || (Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id != 'activation')))
+    Yii::$app->getResponse()->redirect(['site/activation']);
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -21,6 +28,8 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title>Bet v Bet - <?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -78,6 +87,12 @@ AppAsset::register($this);
         <?php if (Yii::$app->getSession()->hasFlash('warning')): ?>
             <div class="alert alert-warning">
                 <?php echo Yii::$app->getSession()->getFlash('warning'); ?>
+            </div>
+        <?php endif ?>
+
+        <?php if (Yii::$app->getSession()->hasFlash('info')): ?>
+            <div class="alert alert-info">
+                <?php echo Yii::$app->getSession()->getFlash('info'); ?>
             </div>
         <?php endif ?>
 

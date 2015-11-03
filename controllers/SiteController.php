@@ -9,6 +9,8 @@ use yii\filters\VerbFilter;
 use app\models\form\LoginForm;
 use app\models\form\RegisterForm;
 use app\components\api\Football;
+use app\models\User;
+use app\models\Activate;
 
 class SiteController extends Controller
 {
@@ -77,6 +79,57 @@ class SiteController extends Controller
         return $this->render('register', [
             'model' => $model,
         ]);
+    }
+
+    public function actionActivation() {
+        $user = Yii::$app->user->getIdentity();
+        if ($user->active) {
+            Yii::$app->getSession()->setFlash("info", "You have already activated your account, super activation is not a thing.");
+            $this->redirect(['site/index']);
+        }
+
+        return $this->render('activation', [
+        ]);
+    }
+
+    public function actionActivate($code = null, $send = false) {
+        $error = null;
+
+        if ($code) {
+            // Look for a code.
+            $activate = Activate::find()->where(['code' => $code])->one();
+            if ($activate) {
+                if ($activate->expires > time()) {
+                    $user = $activate->userobject;
+                    $user->active = true;
+                    $user->save();
+                    echo "<div class='alert alert-success'>Your account has been activated successfully.</div><meta http-equiv=\"refresh\" content=\"5;url=". Yii::getAlias('@web') . "/site/index" ."/\" />";
+                    Yii::$app->getSession()->setFlash("success", "Your account has been activated successfully.");
+                    $this->redirect(['site/index']);
+                } else {
+                    $error = "Your activation code has expired, please check your inbox for a new activation email.";
+                    $activate->userobject->sendActivationEmail();
+                }
+            } else {
+                $error = "Sorry, we could not match your activation code.";
+            }
+        }
+
+        if ($send) {
+            $user = User::find()->where(['id' => $send])->one();
+
+            if ($user) {
+                $user->sendActivationEmail();
+                echo "<div class='alert alert-info'>An activation email has been send to <strong>" . $user->email . "</strong>, make sure to check your spam/junk folder.</div>";
+            } else {
+                $error = "Could not find a user with the ID: $send.";
+            }
+        }
+
+        if ($error)
+            echo "<div class='alert alert-danger'>$error</div>";
+
+        exit;
     }
 
     public function actionLogout()

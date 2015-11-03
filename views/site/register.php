@@ -25,7 +25,7 @@ $this->title = 'Register';
                 </div>\n
             </div>",
         'labelOptions' => ['class' => 'col-md-2 control-label'],
-        'inputOptions' => ['class' => 'form-control floating-label'],
+        'inputOptions' => ['class' => 'form-control'],
     ],
 ]); ?>
 
@@ -47,7 +47,9 @@ $this->title = 'Register';
         'Miss' => 'Miss'
         ]) ?>
     <?= $form->field($model, 'firstname') ?>
-    <?= $form->field($model, 'middlename', ['inputOptions' => ['placeholder' => 'Optional']]) ?>
+    <?= $form->field($model, 'middlename', ['inputOptions' => [
+        'class' => 'form-control floating-label',
+        'placeholder' => 'Optional']]) ?>
     <?= $form->field($model, 'lastname') ?>
     <?= $form->field($model, 'dob', ['inputOptions' => ['type' => 'date']]) ?>
     <?= $form->field($model, 'contact') ?>
