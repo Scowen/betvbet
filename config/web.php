@@ -32,7 +32,7 @@ $config = [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'mail.betvbet.co.uk',
                 'username' => 'noreply@betvbet.co.uk',
-                'password' => 'Kcn^u!eC',
+                'password' => 'PASSWORD',
                 'port' => '587',
                 'encryption' => 'tls',
             ],
